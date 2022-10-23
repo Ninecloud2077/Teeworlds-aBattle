@@ -356,6 +356,14 @@ int IGameController::OnCharacterDeath(class CCharacter *pVictim, class CPlayer *
 	}
 	if(Weapon == WEAPON_SELF)
 		pVictim->GetPlayer()->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()*3.0f;
+
+
+	if(pKiller && pVictim == pKiller->GetPlayer()){
+		switch(pKiller->GetCharacter()->GetAkill()){
+			case AKILL_GHOUL: {pKiller->GetCharacter()->IncreaseHealth(10);break;}
+		}
+	}
+
 	return 0;
 }
 
@@ -363,6 +371,8 @@ void IGameController::OnCharacterSpawn(class CCharacter *pChr)
 {
 	// default health
 	pChr->IncreaseHealth(10);
+
+	pChr->RandAkill();
 
 	// give default weapons
 	pChr->GiveWeapon(WEAPON_HAMMER, -1);

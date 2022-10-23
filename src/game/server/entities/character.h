@@ -55,8 +55,8 @@ public:
 	void FireWeapon();
 
 	int GetAkill(){return m_Akill;}
-	int SetAkill(int Akill){m_Akill = Akill;}
-	int RandAkill();
+	void SetAkill(int Akill){m_Akill = Akill;}
+	void RandAkill();
 
 	void Die(int Killer, int Weapon);
 	bool TakeDamage(vec2 Force, int Dmg, int From, int Weapon);

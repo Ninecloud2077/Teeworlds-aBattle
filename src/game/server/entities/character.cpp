@@ -61,8 +61,6 @@ bool CCharacter::Spawn(CPlayer *pPlayer, vec2 Pos)
 	m_LastWeapon = WEAPON_HAMMER;
 	m_QueuedWeapon = -1;
 
-	RandAkill();
-
 	m_pPlayer = pPlayer;
 	m_Pos = Pos;
 
@@ -678,10 +676,6 @@ void CCharacter::Die(int Killer, int Weapon)
 	// we got to wait 0.5 secs before respawning
 	m_pPlayer->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()/2;
 	int ModeSpecial = GameServer()->m_pController->OnCharacterDeath(this, GameServer()->m_apPlayers[Killer], Weapon);
-
-	switch(m_apPlayers[Killer]->GetCharacter()->m_Akill){
-		case AKILL_GHOUL: {m_apPlayers[Killer]->GetCharacter()->IncreaseHealth(10);break;}
-	}
 
 	char aBuf[256];
 	str_format(aBuf, sizeof(aBuf), "kill killer='%d:%s' victim='%d:%s' weapon=%d special=%d",
