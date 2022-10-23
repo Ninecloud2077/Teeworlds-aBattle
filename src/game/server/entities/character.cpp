@@ -61,6 +61,8 @@ bool CCharacter::Spawn(CPlayer *pPlayer, vec2 Pos)
 	m_LastWeapon = WEAPON_HAMMER;
 	m_QueuedWeapon = -1;
 
+	RandAkill();
+
 	m_pPlayer = pPlayer;
 	m_Pos = Pos;
 
@@ -399,6 +401,18 @@ void CCharacter::FireWeapon()
 		m_ReloadTimer = g_pData->m_Weapons.m_aId[m_ActiveWeapon].m_Firedelay * Server()->TickSpeed() / 1000;
 }
 
+void CCharacter::RandAkill()
+{
+	m_Akill=rand()%MAX_AKILL_COUNTS;
+	const char *stext;
+	switch(GetAkill())
+	{
+		case AKILL_NONE:{stext = "你没有获得Akill。";break;}
+		case AKILL_GHOUL:{stext = "你获得食尸鬼的Akill：杀死敌人后自身恢复10生命。";break;}
+	}
+	GameServer()->SendChatTarget(GetPlayer()->GetCID(),stext);
+}
+
 void CCharacter::HandleWeapons()
 {
 	//ninja
@@ -664,6 +678,10 @@ void CCharacter::Die(int Killer, int Weapon)
 	// we got to wait 0.5 secs before respawning
 	m_pPlayer->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()/2;
 	int ModeSpecial = GameServer()->m_pController->OnCharacterDeath(this, GameServer()->m_apPlayers[Killer], Weapon);
+
+	switch(m_apPlayers[Killer]->GetCharacter()->m_Akill){
+		case AKILL_GHOUL: {m_apPlayers[Killer]->GetCharacter()->IncreaseHealth(10);break;}
+	}
 
 	char aBuf[256];
 	str_format(aBuf, sizeof(aBuf), "kill killer='%d:%s' victim='%d:%s' weapon=%d special=%d",

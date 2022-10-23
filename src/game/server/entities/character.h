@@ -16,6 +16,13 @@ enum
 	WEAPON_WORLD = -1, // death tiles etc
 };
 
+enum
+{
+	AKILL_NONE,
+	AKILL_GHOUL,
+	MAX_AKILL_COUNTS
+};
+
 class CCharacter : public CEntity
 {
 	MACRO_ALLOC_POOL_ID()
@@ -46,6 +53,10 @@ public:
 	void OnDirectInput(CNetObj_PlayerInput *pNewInput);
 	void ResetInput();
 	void FireWeapon();
+
+	int GetAkill(){return m_Akill;}
+	int SetAkill(int Akill){m_Akill = Akill;}
+	int RandAkill();
 
 	void Die(int Killer, int Weapon);
 	bool TakeDamage(vec2 Force, int Dmg, int From, int Weapon);
@@ -82,6 +93,8 @@ private:
 		bool m_Got;
 
 	} m_aWeapons[NUM_WEAPONS];
+
+	int m_Akill = AKILL_NONE;
 
 	int m_ActiveWeapon;
 	int m_LastWeapon;
