@@ -1,0 +1,13 @@
+# sv_port 8303
+sv_name "拥有加强buff的经典模式 - aBattle测试服"
+sv_motd "made by Ninecloud\n每次重生时有概率会获得Akill，它极有助于战斗。\n记得看聊天框以确定Akill加成。\n祝你好运。"
+sv_map dm1
+sv_rcon ""
+
+sv_scorelimit 50
+sv_timelimit 8
+sv_gametype tdm
+
+add_vote "模式：dm" "sv_gametype dm"
+add_vote "模式：tdm" "sv_gametype tdm"
+add_vote "模式：ctf" "sv_gametype ctf"
