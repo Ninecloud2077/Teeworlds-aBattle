@@ -358,7 +358,7 @@ int IGameController::OnCharacterDeath(class CCharacter *pVictim, class CPlayer *
 		pVictim->GetPlayer()->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()*3.0f;
 
 
-	if(pKiller && pVictim == pKiller->GetPlayer()){
+	if(pKiller && pVictim == pKiller->GetCharacter()){
 		switch(pKiller->GetCharacter()->GetAkill()){
 			case AKILL_GHOUL: {pKiller->GetCharacter()->IncreaseHealth(10);break;}
 		}
