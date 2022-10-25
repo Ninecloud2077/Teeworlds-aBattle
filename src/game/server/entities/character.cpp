@@ -407,8 +407,16 @@ void CCharacter::RandAkill()
 	{
 		case AKILL_NONE:{stext = "你没有获得Akill。";break;}
 		case AKILL_GHOUL:{stext = "你获得食尸鬼的Akill：杀死敌人后自身恢复10生命。";break;}
+		case AKILL_WITCH:{stext = "你获得女巫的Akill：敌人杀死你的瞬间你复活，清空Akill并恢复所有生命。";break;}
 	}
 	GameServer()->SendChatTarget(GetPlayer()->GetCID(),stext);
+}
+
+void CCharacter::SetAkill(int Akill)
+{
+	m_Akill = Akill;
+	if(Akill == AKILL_NONE)
+		GameServer()->SendChatTarget(GetPlayer()->GetCID(),"你的Akill被清空！");
 }
 
 void CCharacter::HandleWeapons()
@@ -671,6 +679,15 @@ bool CCharacter::IncreaseArmor(int Amount)
 
 void CCharacter::Die(int Killer, int Weapon)
 {
+	// players with witch akill doesn't die
+	switch(GetAkill()) {
+		case AKILL_WITCH:{
+			SetAkill(AKILL_NONE);
+			IncreaseHealth(20);
+			return;
+		}
+	}
+
 	// we got to wait 0.5 secs before respawning
 	m_pPlayer->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()/2;
 	int ModeSpecial = GameServer()->m_pController->OnCharacterDeath(this, GameServer()->m_apPlayers[Killer], Weapon);

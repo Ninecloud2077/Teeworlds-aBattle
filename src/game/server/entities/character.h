@@ -20,6 +20,8 @@ enum
 {
 	AKILL_NONE,
 	AKILL_GHOUL,
+	AKILL_WITCH,
+	//AKILL_HERO,
 	MAX_AKILL_COUNTS
 };
 
@@ -55,7 +57,7 @@ public:
 	void FireWeapon();
 
 	int GetAkill(){return m_Akill;}
-	void SetAkill(int Akill){m_Akill = Akill;}
+	void SetAkill(int Akill);
 	void RandAkill();
 
 	void Die(int Killer, int Weapon);
