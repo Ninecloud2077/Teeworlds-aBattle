@@ -353,16 +353,13 @@ int IGameController::OnCharacterDeath(class CCharacter *pVictim, class CPlayer *
 			pKiller->m_Score--; // teamkill
 		else
 			pKiller->m_Score++; // normal kill
-	}
-	if(Weapon == WEAPON_SELF)
-		pVictim->GetPlayer()->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()*3.0f;
 
-
-	if(pKiller && pVictim == pKiller->GetCharacter()){
 		switch(pKiller->GetCharacter()->GetAkill()){
 			case AKILL_GHOUL: {pKiller->GetCharacter()->IncreaseHealth(10);break;}
 		}
 	}
+	if(Weapon == WEAPON_SELF)
+		pVictim->GetPlayer()->m_RespawnTick = Server()->Tick()+Server()->TickSpeed()*3.0f;
 
 	return 0;
 }
