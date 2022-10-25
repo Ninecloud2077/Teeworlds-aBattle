@@ -375,6 +375,19 @@ void IGameController::OnCharacterSpawn(class CCharacter *pChr)
 	// give default weapons
 	pChr->GiveWeapon(WEAPON_HAMMER, -1);
 	pChr->GiveWeapon(WEAPON_GUN, 10);
+
+	// give weapons for hero akills
+	switch(pChr->GetAkill())
+	{
+		case AKILL_HERO:
+		{
+			for(int i = WEAPON_SHOTGUN; i<=WEAPON_RIFLE; i++)
+			{
+				pChr->GiveWeapon(i, 10);
+			}
+			break;
+		}
+	}
 }
 
 void IGameController::DoWarmup(int Seconds)

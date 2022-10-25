@@ -408,6 +408,7 @@ void CCharacter::RandAkill()
 		case AKILL_NONE:{stext = "你没有获得Akill。";break;}
 		case AKILL_GHOUL:{stext = "你获得食尸鬼的Akill：杀死敌人后自身恢复10生命。";break;}
 		case AKILL_WITCH:{stext = "你获得女巫的Akill：敌人杀死你的瞬间你复活，清空Akill并恢复所有生命。";break;}
+		case AKILL_HERO:{stext = "你获得英雄的Akill：你初始拥有20盾与全武器。";break;}
 	}
 	GameServer()->SendChatTarget(GetPlayer()->GetCID(),stext);
 }
