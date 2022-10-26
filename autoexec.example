@@ -1,13 +1,21 @@
 # sv_port 8303
-sv_name "拥有加强buff的经典模式 - aBattle测试服"
-sv_motd "made by Ninecloud\n每次重生时有概率会获得Akill，它极有助于战斗。\n记得看聊天框以确定Akill加成。\n祝你好运。"
-sv_map dm1
+# 致火锅等腐竹：
+# sv_scorelimit那一块尽量不要动，后面可能会根据它们拓展玩法
+
+sv_name "在超强buff加持下战斗 - aBattle测试服"
+sv_motd "made by Ninecloud\n每人拥有20生命，且护盾无上限。\n每次重生时有概率会获得Akill，它极有助于战斗。\n记得看聊天框以确定Akill加成。\n祝你好运。"
+sv_map ctf1
 sv_rcon ""
 
-sv_scorelimit 50
-sv_timelimit 8
+sv_scorelimit 35
+sv_timelimit 6
 sv_gametype tdm
 
-add_vote "模式：dm" "sv_gametype dm"
-add_vote "模式：tdm" "sv_gametype tdm"
-add_vote "模式：ctf" "sv_gametype ctf"
+add_vote "选择地图：" "broadcast Bad Vote Request"
+add_vote "ctf1" "sv_map ctf1"
+add_vote "ctf2" "sv_map ctf2"
+add_vote "ctf3" "sv_map ctf3"
+add_vote "ctf4" "sv_map ctf4"
+add_vote "ctf5" "sv_map ctf5"
+add_vote "ctf6" "sv_map ctf6"
+add_vote "ctf7" "sv_map ctf7"
